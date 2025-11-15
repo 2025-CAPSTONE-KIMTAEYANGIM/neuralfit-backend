@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
             final BadCredentialsException e, final HttpServletRequest request
     ) {
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .message(e.getMessage())
+                .message(HttpStatus.UNAUTHORIZED.getReasonPhrase())
                 .status(HttpStatus.UNAUTHORIZED.value())
                 .build();
 
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message(e.getMessage())
+                .message(HttpStatus.BAD_REQUEST.getReasonPhrase())
                 .errors(fieldErrors)
                 .build();
 
