@@ -34,10 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
 
         // 헤더 포함 안된 요청의 경우 Request를 다음 필터로 넘김
-        if (token == null || !jwtUtil.validateAccessToken(token)) {
-            log.info(request.getRequestURL().toString());
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
+        }
+
+        if (!jwtUtil.validateAccessToken(token)) {
+            throw new BadCredentialsException("유효하지 않은 토큰입니다.");
         }
 
         // 토큰으로부터 사용자 ID 파싱
@@ -50,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(!appUser.isValid){
             throw new new BadCredentialsException("유효하지 않은 토큰입니다.");
         }
-         */
+        */
 
         //Security Context에 사용자 ID 저장
         UsernamePasswordAuthenticationToken authToken =

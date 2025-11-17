@@ -1,5 +1,6 @@
 package com.example.neuralfit.common.config;
 
+import com.example.neuralfit.common.exception.AuthAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import java.util.List;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthAuthenticationEntryPoint authAuthenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -46,8 +48,9 @@ public class SecurityConfig {
                         //.anyRequest().permitAll() // 모든 요청 허용
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-                .formLogin(AbstractHttpConfigurer::disable)   // 기본 폼 로그인 비활성화
-                .httpBasic(AbstractHttpConfigurer::disable);
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(authAuthenticationEntryPoint)
+                );
         return http.build();
     }
 
