@@ -1,9 +1,5 @@
-package com.example.neuralfit.auth.service;
+package com.example.neuralfit.auth;
 
-import com.example.neuralfit.auth.dto.LoginRequest;
-import com.example.neuralfit.auth.dto.LoginResponse;
-import com.example.neuralfit.auth.dto.PatientSignUpRequest;
-import com.example.neuralfit.auth.dto.TherapistSignUpRequest;
 import com.example.neuralfit.common.entity.AppUser;
 import com.example.neuralfit.common.entity.Patient;
 import com.example.neuralfit.common.entity.Therapist;

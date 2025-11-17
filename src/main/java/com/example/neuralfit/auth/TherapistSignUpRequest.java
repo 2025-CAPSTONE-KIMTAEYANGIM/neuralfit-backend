@@ -1,4 +1,4 @@
-package com.example.neuralfit.auth.dto;
+package com.example.neuralfit.auth;
 
 import com.example.neuralfit.common.code.TherapistType;
 import com.example.neuralfit.common.code.UserRole;

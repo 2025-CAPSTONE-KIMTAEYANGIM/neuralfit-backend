@@ -1,10 +1,5 @@
-package com.example.neuralfit.auth.controller;
+package com.example.neuralfit.auth;
 
-import com.example.neuralfit.auth.dto.LoginRequest;
-import com.example.neuralfit.auth.dto.LoginResponse;
-import com.example.neuralfit.auth.dto.PatientSignUpRequest;
-import com.example.neuralfit.auth.dto.TherapistSignUpRequest;
-import com.example.neuralfit.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
