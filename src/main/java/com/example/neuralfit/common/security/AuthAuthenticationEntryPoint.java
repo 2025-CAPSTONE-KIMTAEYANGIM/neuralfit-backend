@@ -1,4 +1,4 @@
-package com.example.neuralfit.common.exception;
+package com.example.neuralfit.common.security;
 
 import com.example.neuralfit.common.dto.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
