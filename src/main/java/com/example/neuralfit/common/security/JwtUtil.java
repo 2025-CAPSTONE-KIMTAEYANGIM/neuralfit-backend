@@ -30,31 +30,26 @@ public class JwtUtil {
                 .claim("auth", authorities)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessExp()))
-                .signWith(jwtProperties.getSecretKey())
+                .signWith(jwtProperties.getAccessSecretKey())
                 .compact();
     }
 
     // Access 토큰 생성
     public String generateRefreshToken(Authentication auth) {
-        AppUser user = (AppUser) auth.getPrincipal();
-
-        String authorities = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+        AppUser appUser = (AppUser) auth.getPrincipal();
 
         return Jwts.builder()
-                .subject(user.getId().toString())
-                .claim("auth", authorities)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp()))
-                .signWith(jwtProperties.getSecretKey())
+                .subject(appUser.getId().toString())
+                .signWith(jwtProperties.getRefreshSecretKey())
                 .compact();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateAccessToken(String token) {
         try {
             Jwts.parser()
-                    .verifyWith(jwtProperties.getSecretKey())
+                    .verifyWith(jwtProperties.getAccessSecretKey())
                     .build()
                     .parseSignedClaims(token);
             return true;
@@ -73,9 +68,19 @@ public class JwtUtil {
         return false;
     }
 
-    public Integer getIdFromToken(String token) {
+    public Integer getIdFromAccessToken(String token) {
         Claims claims =  Jwts.parser()
-                .verifyWith(jwtProperties.getSecretKey())
+                .verifyWith(jwtProperties.getAccessSecretKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return Integer.parseInt(claims.getSubject());
+    }
+
+    public Integer getIdFromRefreshToken(String token) {
+        Claims claims =  Jwts.parser()
+                .verifyWith(jwtProperties.getRefreshSecretKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

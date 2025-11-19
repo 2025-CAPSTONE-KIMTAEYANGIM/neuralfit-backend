@@ -1,5 +1,6 @@
 package com.example.neuralfit.common.config;
 
+import com.example.neuralfit.common.exception.AuthAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import java.util.List;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthAuthenticationEntryPoint authAuthenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -40,14 +42,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/test").permitAll()
+                                .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers("/api/auth/login", "/api/auth/signup/**").permitAll()
                                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                         //.anyRequest().permitAll() // 모든 요청 허용
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-                .formLogin(AbstractHttpConfigurer::disable)   // 기본 폼 로그인 비활성화
-                .httpBasic(AbstractHttpConfigurer::disable);
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(authAuthenticationEntryPoint)
+                );
         return http.build();
     }
 

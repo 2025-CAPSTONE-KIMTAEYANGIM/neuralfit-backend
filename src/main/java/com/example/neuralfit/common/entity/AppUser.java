@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,15 +40,17 @@ public class AppUser implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", insertable = false)
-    private LocalDateTime updatedAt;
-
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @Column(name = "created_at")
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     @Override
     public String getUsername() {

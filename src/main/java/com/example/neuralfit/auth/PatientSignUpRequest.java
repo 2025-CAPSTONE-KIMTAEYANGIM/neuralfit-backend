@@ -1,7 +1,6 @@
-package com.example.neuralfit.auth.dto;
+package com.example.neuralfit.auth;
 
-import com.example.neuralfit.common.code.TherapistType;
-import com.example.neuralfit.common.code.UserRole;
+import com.example.neuralfit.common.code.Gender;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TherapistSignUpRequest {
+public class PatientSignUpRequest {
     @NotBlank(message = "이메일을 입력해주세요")
     @Email(message = "올바른 이메일 형식이 아닙니다")
     private String email;
@@ -25,10 +26,8 @@ public class TherapistSignUpRequest {
     @NotBlank(message = "이름을 입력해주세요")
     @Length(min = 1, max = 16, message = "이름은 최소 1자, 최대 16자 입력 가능합니다")
     private String name;
-    @NotNull(message = "역할을 입력해주세요")
-    private UserRole userRole;
-    @NotBlank(message = "소속기관을 입력해주세요")
-    private String organization;
-    @NotNull(message = "의료진 유형을 입력해주세요")
-    private TherapistType therapistType;
+    @NotNull(message = "생년월일을 입력해주세요")
+    private LocalDate birthDate;
+    @NotNull(message = "성별을 입력해주세요")
+    private Gender gender;
 }

@@ -32,17 +32,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         // JWT 파싱
         String token = resolveToken(request);
-        log.info("JWT token: {}", token);
 
         // 헤더 포함 안된 요청의 경우 Request를 다음 필터로 넘김
-        if (token == null || !jwtUtil.validateToken(token)) {
-            log.info(request.getRequestURL().toString());
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        if (!jwtUtil.validateAccessToken(token)) {
+            throw new BadCredentialsException("유효하지 않은 토큰입니다.");
+        }
+
         // 토큰으로부터 사용자 ID 파싱
-        Integer id = jwtUtil.getIdFromToken(token);
+        Integer id = jwtUtil.getIdFromAccessToken(token);
 
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new BadCredentialsException("유효하지 않은 토큰입니다.")); //401
@@ -51,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(!appUser.isValid){
             throw new new BadCredentialsException("유효하지 않은 토큰입니다.");
         }
-         */
+        */
 
         //Security Context에 사용자 ID 저장
         UsernamePasswordAuthenticationToken authToken =

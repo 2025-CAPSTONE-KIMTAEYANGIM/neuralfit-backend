@@ -1,4 +1,4 @@
-package com.example.neuralfit.auth.dto;
+package com.example.neuralfit.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
