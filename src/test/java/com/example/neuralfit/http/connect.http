@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/user/connection/try
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImlhdCI6MTc2MzY0OTkzMCwiZXhwIjoxNzYzNzM2MzMwfQ.oOkI8P31n2dJZkdKL6wfwowJ8sRG8WCYsGTRqaxpmEufCX5FVwkFN9ayxIer3kzEdZzOlF_KmvdzMrzOF73wqg
+
+{
+  "key": "24d80e"
+}

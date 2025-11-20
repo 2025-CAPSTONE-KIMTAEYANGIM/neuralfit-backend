@@ -1,12 +1,13 @@
 package com.example.neuralfit.user.controller;
 
 import com.example.neuralfit.user.dto.AppUserInfoDto;
+import com.example.neuralfit.user.dto.ConnectionKeyDto;
+import com.example.neuralfit.user.dto.ConnectionTryDto;
 import com.example.neuralfit.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,7 +16,21 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    public ResponseEntity<AppUserInfoDto> getMe(){
+    public ResponseEntity<AppUserInfoDto> getMe() {
         return ResponseEntity.ok(userService.getMe());
+    }
+
+    @PostMapping("/connection/generate")
+    public ResponseEntity<ConnectionKeyDto> generateConnectionKey() {
+        return ResponseEntity.ok(userService.generateConnectionKey());
+    }
+
+    @PostMapping("/connection/try")
+    public ResponseEntity<Void> tryConnection(
+            @RequestBody @Valid ConnectionTryDto connectionTryDto
+    ) {
+        userService.tryConnection(connectionTryDto);
+
+        return ResponseEntity.ok().build();
     }
 }
