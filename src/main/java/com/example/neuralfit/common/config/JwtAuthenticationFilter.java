@@ -2,6 +2,7 @@ package com.example.neuralfit.common.config;
 
 import com.example.neuralfit.common.entity.AppUser;
 import com.example.neuralfit.common.repository.AppUserRepository;
+import com.example.neuralfit.common.security.AuthAuthenticationEntryPoint;
 import com.example.neuralfit.common.security.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,6 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final AppUserRepository appUserRepository;
+    private final AuthAuthenticationEntryPoint authAuthenticationEntryPoint;
 
     @Override
     protected void doFilterInternal(
@@ -39,28 +42,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (!jwtUtil.validateAccessToken(token)) {
-            throw new BadCredentialsException("유효하지 않은 토큰입니다.");
+        try {
+            if (!jwtUtil.validateAccessToken(token)) {
+                throw new BadCredentialsException("유효하지 않은 토큰입니다.");
+            }
+            // 토큰으로부터 사용자 ID 파싱
+            Integer id = jwtUtil.getIdFromAccessToken(token);
+
+            AppUser appUser = appUserRepository.findById(id)
+                    .orElseThrow(() -> new BadCredentialsException("유효하지 않은 토큰입니다.")); //401
+
+            /*
+            if(!appUser.isValid){
+                throw new new BadCredentialsException("유효하지 않은 토큰입니다.");
+            }
+            */
+
+            //Security Context에 사용자 ID 저장
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(appUser, null, appUser.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            filterChain.doFilter(request, response);
+        } catch (AuthenticationException e) {
+            SecurityContextHolder.clearContext();
+            authAuthenticationEntryPoint.commence(request, response, e);
         }
-
-        // 토큰으로부터 사용자 ID 파싱
-        Integer id = jwtUtil.getIdFromAccessToken(token);
-
-        AppUser appUser = appUserRepository.findById(id)
-                .orElseThrow(() -> new BadCredentialsException("유효하지 않은 토큰입니다.")); //401
-
-        /*
-        if(!appUser.isValid){
-            throw new new BadCredentialsException("유효하지 않은 토큰입니다.");
-        }
-        */
-
-        //Security Context에 사용자 ID 저장
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(appUser, null, appUser.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-
-        filterChain.doFilter(request, response);
     }
 
     private String resolveToken(HttpServletRequest request) {
