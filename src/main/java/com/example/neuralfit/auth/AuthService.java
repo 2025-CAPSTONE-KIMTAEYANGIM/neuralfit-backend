@@ -4,6 +4,7 @@ import com.example.neuralfit.common.code.UserRole;
 import com.example.neuralfit.common.entity.AppUser;
 import com.example.neuralfit.common.entity.Patient;
 import com.example.neuralfit.common.entity.Therapist;
+import com.example.neuralfit.common.exception.ConflictException;
 import com.example.neuralfit.common.repository.AppUserRepository;
 import com.example.neuralfit.common.repository.PatientRepository;
 import com.example.neuralfit.common.repository.TherapistRepository;
@@ -42,7 +43,7 @@ public class AuthService {
     public void patientSignUp(PatientSignUpRequest signUpRequest) {
         appUserRepository.findByEmail(signUpRequest.getEmail())
                 .ifPresent(appUser -> {
-                    throw new IllegalArgumentException("중복되는 이메일입니다");
+                    throw new ConflictException("중복되는 이메일입니다");
                 });
 
         AppUser appUser = appUserRepository.save(AppUser.builder()
@@ -64,7 +65,7 @@ public class AuthService {
     public void therapistSignUp(TherapistSignUpRequest signUpRequest) {
         appUserRepository.findByEmail(signUpRequest.getEmail())
                 .ifPresent(appUser -> {
-                    throw new IllegalArgumentException("중복되는 이메일입니다");
+                    throw new ConflictException("중복되는 이메일입니다");
                 });
 
         AppUser appUser = appUserRepository.save(AppUser.builder()
