@@ -1,4 +1,4 @@
-package com.example.neuralfit.common.entity;
+package com.example.neuralfit.user.entity;
 
 import com.example.neuralfit.common.code.TherapistType;
 import jakarta.persistence.*;

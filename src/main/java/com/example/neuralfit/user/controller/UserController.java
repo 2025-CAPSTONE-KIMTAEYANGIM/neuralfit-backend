@@ -1,7 +1,7 @@
-package com.example.neuralfit.common.controller;
+package com.example.neuralfit.user.controller;
 
-import com.example.neuralfit.common.dto.AppUserInfoDto;
-import com.example.neuralfit.common.service.UserService;
+import com.example.neuralfit.user.dto.AppUserInfoDto;
+import com.example.neuralfit.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

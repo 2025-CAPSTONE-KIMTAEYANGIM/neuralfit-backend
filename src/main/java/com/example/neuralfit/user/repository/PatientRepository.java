@@ -1,6 +1,6 @@
-package com.example.neuralfit.common.repository;
+package com.example.neuralfit.user.repository;
 
-import com.example.neuralfit.common.entity.Patient;
+import com.example.neuralfit.user.entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

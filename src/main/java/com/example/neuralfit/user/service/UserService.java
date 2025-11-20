@@ -1,10 +1,10 @@
-package com.example.neuralfit.common.service;
+package com.example.neuralfit.user.service;
 
-import com.example.neuralfit.common.dto.AppUserInfoDto;
-import com.example.neuralfit.common.entity.AppUser;
-import com.example.neuralfit.common.repository.AppUserRepository;
-import com.example.neuralfit.common.repository.PatientRepository;
-import com.example.neuralfit.common.repository.TherapistRepository;
+import com.example.neuralfit.user.dto.AppUserInfoDto;
+import com.example.neuralfit.user.entity.AppUser;
+import com.example.neuralfit.user.repository.AppUserRepository;
+import com.example.neuralfit.user.repository.PatientRepository;
+import com.example.neuralfit.user.repository.TherapistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

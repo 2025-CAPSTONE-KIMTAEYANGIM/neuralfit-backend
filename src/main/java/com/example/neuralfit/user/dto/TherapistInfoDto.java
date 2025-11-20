@@ -1,7 +1,7 @@
-package com.example.neuralfit.common.dto;
+package com.example.neuralfit.user.dto;
 
 import com.example.neuralfit.common.code.TherapistType;
-import com.example.neuralfit.common.entity.Therapist;
+import com.example.neuralfit.user.entity.Therapist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

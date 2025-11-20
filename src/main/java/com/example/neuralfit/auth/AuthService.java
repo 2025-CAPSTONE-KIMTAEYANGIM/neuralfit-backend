@@ -1,13 +1,13 @@
 package com.example.neuralfit.auth;
 
 import com.example.neuralfit.common.code.UserRole;
-import com.example.neuralfit.common.entity.AppUser;
-import com.example.neuralfit.common.entity.Patient;
-import com.example.neuralfit.common.entity.Therapist;
+import com.example.neuralfit.user.entity.AppUser;
+import com.example.neuralfit.user.entity.Patient;
+import com.example.neuralfit.user.entity.Therapist;
 import com.example.neuralfit.common.exception.ConflictException;
-import com.example.neuralfit.common.repository.AppUserRepository;
-import com.example.neuralfit.common.repository.PatientRepository;
-import com.example.neuralfit.common.repository.TherapistRepository;
+import com.example.neuralfit.user.repository.AppUserRepository;
+import com.example.neuralfit.user.repository.PatientRepository;
+import com.example.neuralfit.user.repository.TherapistRepository;
 import com.example.neuralfit.common.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
