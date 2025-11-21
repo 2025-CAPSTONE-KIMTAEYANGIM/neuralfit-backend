@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -21,6 +23,11 @@ public class UserController {
     @PostMapping("/connection/generate")
     public ResponseEntity<ConnectionKeyDto> generateConnectionKey() {
         return ResponseEntity.ok(userService.generateConnectionKey());
+    }
+
+    @GetMapping("/my-patients")
+    public ResponseEntity<List<PatientInfoDto>> getMyPatients() {
+        return ResponseEntity.ok(userService.getMyPatients());
     }
 
     @PostMapping("/connection/try")

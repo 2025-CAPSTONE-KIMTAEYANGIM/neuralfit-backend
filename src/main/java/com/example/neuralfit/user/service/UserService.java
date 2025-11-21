@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class UserService {
     public AppUserInfoDto getMe() {
         AppUser currentUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if(currentUser.getUserRole() == UserRole.PATIENT){
+        if (currentUser.getUserRole() == UserRole.PATIENT) {
             Patient patient = patientRepository.findById(currentUser.getId())
                     .orElseThrow(() -> new NoSuchElementException("해당 환자를 찾을 수 없습니다."));
 
@@ -75,7 +77,7 @@ public class UserService {
             throw new ForbiddenException("권한이 없습니다.");
         }
 
-        if(!redisTemplate.hasKey(connectionTryDto.getKey())) {
+        if (!redisTemplate.hasKey(connectionTryDto.getKey())) {
             throw new IllegalArgumentException("올바르지 않은 코드입니다.");
         }
 
@@ -86,7 +88,9 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("해당 환자를 찾을 수 없습니다."));
 
         userConnectionRepository.findByTherapistAndPatient(therapist, patient)
-                        .ifPresent(conn -> {throw new ConflictException("이미 연결되어 있습니다.");});
+                .ifPresent(conn -> {
+                    throw new ConflictException("이미 연결되어 있습니다.");
+                });
 
         userConnectionRepository.save(
                 UserConnection.builder()
@@ -94,5 +98,21 @@ public class UserService {
                         .therapist(therapist)
                         .build()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<PatientInfoDto> getMyPatients() {
+        AppUser currentUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Therapist therapist = therapistRepository.findById(currentUser.getId())
+                .orElseThrow(() -> new NoSuchElementException("해당 의료진을 찾을 수 없습니다."));
+
+        List<UserConnection> connections = userConnectionRepository.findByTherapistWithFetchJoin(therapist);
+
+        return connections.stream().map(
+                (connection) -> PatientInfoDto.fromEntity(
+                        connection.getPatient().getAppUser(), connection.getPatient()
+                )
+        ).collect(Collectors.toList());
     }
 }
