@@ -1,7 +1,7 @@
 package com.example.neuralfit.common.service;
 
-import com.example.neuralfit.common.entity.AppUser;
-import com.example.neuralfit.common.repository.AppUserRepository;
+import com.example.neuralfit.user.entity.AppUser;
+import com.example.neuralfit.user.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

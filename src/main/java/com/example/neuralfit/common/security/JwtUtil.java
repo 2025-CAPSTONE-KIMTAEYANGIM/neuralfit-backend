@@ -1,6 +1,6 @@
 package com.example.neuralfit.common.security;
 
-import com.example.neuralfit.common.entity.AppUser;
+import com.example.neuralfit.user.entity.AppUser;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.example.neuralfit.common.exception;
+package com.example.neuralfit.common.security;
 
 import com.example.neuralfit.common.dto.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ public class AuthAuthenticationEntryPoint implements AuthenticationEntryPoint {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .errors(null)
                 .status(HttpStatus.UNAUTHORIZED.value())
-                .message(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+                .message("자격 증명에 실패했습니다.")
                 .build();
 
         String responseBody = objectMapper.writeValueAsString(errorResponse);

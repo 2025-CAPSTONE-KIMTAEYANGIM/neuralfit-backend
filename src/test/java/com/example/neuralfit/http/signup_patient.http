@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/auth/signup/patient
+Content-Type: application/json
+
+{
+  "email": "asd@asd",
+  "password": "asdasdasd1",
+  "name": "asd",
+  "birthDate": "1990-01-01",
+  "gender": "FEMALE"
+}

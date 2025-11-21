@@ -1,0 +1,3 @@
+POST http://localhost:8080/api/user/connection/generate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiYXV0aCI6IiIsImlhdCI6MTc2Mzc1MDE5NCwiZXhwIjoxNzYzODM2NTk0fQ.839k4zJ295xOEeZXLp6HQhNgI1eDGA7hyGQVwWvDj0bvRwV7lrB85XvVZMG12vZyFcU2__aNZOhbYJjW0X8n5Q

@@ -1,6 +1,6 @@
 package com.example.neuralfit.common.config;
 
-import com.example.neuralfit.common.exception.AuthAuthenticationEntryPoint;
+import com.example.neuralfit.common.security.AuthAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
