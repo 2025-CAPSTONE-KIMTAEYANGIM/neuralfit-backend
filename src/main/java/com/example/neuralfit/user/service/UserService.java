@@ -3,9 +3,7 @@ package com.example.neuralfit.user.service;
 import com.example.neuralfit.common.code.UserRole;
 import com.example.neuralfit.common.exception.ConflictException;
 import com.example.neuralfit.common.exception.ForbiddenException;
-import com.example.neuralfit.user.dto.AppUserInfoDto;
-import com.example.neuralfit.user.dto.ConnectionKeyDto;
-import com.example.neuralfit.user.dto.ConnectionTryDto;
+import com.example.neuralfit.user.dto.*;
 import com.example.neuralfit.user.entity.AppUser;
 import com.example.neuralfit.user.entity.Patient;
 import com.example.neuralfit.user.entity.Therapist;
@@ -37,7 +35,17 @@ public class UserService {
     public AppUserInfoDto getMe() {
         AppUser currentUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return AppUserInfoDto.fromEntity(currentUser);
+        if(currentUser.getUserRole() == UserRole.PATIENT){
+            Patient patient = patientRepository.findById(currentUser.getId())
+                    .orElseThrow(() -> new NoSuchElementException("해당 환자를 찾을 수 없습니다."));
+
+            return PatientInfoDto.fromEntity(currentUser, patient);
+        } else {
+            Therapist therapist = therapistRepository.findById(currentUser.getId())
+                    .orElseThrow(() -> new NoSuchElementException("해당 의료진을 찾을 수 없습니다."));
+
+            return TherapistInfoDto.fromEntity(currentUser, therapist);
+        }
     }
 
     @Transactional(readOnly = true)

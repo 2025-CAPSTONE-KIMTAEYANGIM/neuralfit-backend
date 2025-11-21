@@ -1,8 +1,6 @@
 package com.example.neuralfit.user.controller;
 
-import com.example.neuralfit.user.dto.AppUserInfoDto;
-import com.example.neuralfit.user.dto.ConnectionKeyDto;
-import com.example.neuralfit.user.dto.ConnectionTryDto;
+import com.example.neuralfit.user.dto.*;
 import com.example.neuralfit.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

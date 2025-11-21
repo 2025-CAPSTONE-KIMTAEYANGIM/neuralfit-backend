@@ -2,15 +2,17 @@ package com.example.neuralfit.user.dto;
 
 import com.example.neuralfit.common.code.UserRole;
 import com.example.neuralfit.user.entity.AppUser;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
-@Builder
+@SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppUserInfoDto {
     private final Integer id;
     private final String email;
