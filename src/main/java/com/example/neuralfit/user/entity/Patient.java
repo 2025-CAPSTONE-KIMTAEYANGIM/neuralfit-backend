@@ -24,10 +24,10 @@ public class Patient {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private AppUser appUser;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(name = "birthdate")
+    @Column(name = "birthdate", nullable = false)
     private LocalDate birthDate;
 }

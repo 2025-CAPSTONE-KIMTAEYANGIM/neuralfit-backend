@@ -26,11 +26,11 @@ public class UserConnection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name="therapist_id")
+    @JoinColumn(name="therapist_id", nullable=false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Therapist therapist;
 
-    @JoinColumn(name="patient_id")
+    @JoinColumn(name="patient_id", nullable=false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
 
