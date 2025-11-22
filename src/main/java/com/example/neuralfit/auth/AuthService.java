@@ -56,7 +56,7 @@ public class AuthService {
 
         patientRepository.save(Patient.builder()
                 .appUser(appUser)
-                .birthdate(signUpRequest.getBirthDate())
+                .birthDate(signUpRequest.getBirthDate())
                 .gender(signUpRequest.getGender())
                 .build());
     }

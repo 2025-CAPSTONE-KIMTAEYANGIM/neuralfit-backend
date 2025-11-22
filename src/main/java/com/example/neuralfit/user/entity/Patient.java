@@ -29,5 +29,5 @@ public class Patient {
     private Gender gender;
 
     @Column(name = "birthdate")
-    private LocalDate birthdate;
+    private LocalDate birthDate;
 }
