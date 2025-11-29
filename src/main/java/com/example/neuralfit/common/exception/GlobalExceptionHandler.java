@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     ) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(HttpStatus.FORBIDDEN.value())
-                .message(e.getMessage())
+                .message("접근 권한이 없습니다.")
                 .build();
 
         log.error("{} {}", errorResponse.toString(), request.getRequestURI());
