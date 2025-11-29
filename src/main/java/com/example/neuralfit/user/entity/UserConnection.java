@@ -11,11 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "user_connection",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"therapist_id", "patient_id"})
-        })
+@Table(name = "user_connection", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"therapist_id", "patient_id"})
+})
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,15 +24,15 @@ public class UserConnection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name="therapist_id", nullable=false)
+    @JoinColumn(name = "therapist_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Therapist therapist;
 
-    @JoinColumn(name="patient_id", nullable=false)
+    @JoinColumn(name = "patient_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     @CreatedDate
     private LocalDateTime createdAt;
 }
