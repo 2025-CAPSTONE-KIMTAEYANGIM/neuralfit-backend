@@ -69,7 +69,7 @@ public class UserService {
         return new ConnectionKeyDto(key);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void tryConnection(ConnectionTryDto connectionTryDto) {
         AppUser currentUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
