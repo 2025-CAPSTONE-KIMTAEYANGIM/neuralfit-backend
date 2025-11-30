@@ -1,0 +1,20 @@
+POST http://localhost:8080/api/record/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImlhdCI6MTc2NDUwNjA2MywiZXhwIjoxNzY0NTkyNDYzfQ.H8uyUixM_nMH1c5e3CPZVay6q8EHenR99a-Jp3bbnukNj_o-vJl5dQ13iImmHhrCr9dfYizs9P6k7-XzojfoQQ
+
+{
+  "consultationType": "FIRST",
+  "description": "테스트 진료 설명",
+  "consultationDate": "2025-11-01",
+  "diagnosis": "CN",
+  "patientComment": "테스트 환자 코멘트",
+  "moca" : 5,
+  "mmse" : 8,
+  "faq": 3,
+  "ldelTotal": 4,
+  "adas13": 7,
+  "abeta" : 1.5,
+  "ptau": 3.4,
+  "ecogPtMem" : 5.2,
+  "ecogPtTotal": 6.8
+}

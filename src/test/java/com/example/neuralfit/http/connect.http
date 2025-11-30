@@ -1,7 +1,7 @@
 POST http://localhost:8080/api/user/connection/try
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImlhdCI6MTc2Mzc1MDE3MCwiZXhwIjoxNzYzODM2NTcwfQ.WSN7TckKgcy764ie0cilvmqjz9Xn5iEotCr4qScrFwHhDCuLbAgovg7ETw1pZbWdzpPxinZ_zb08W4DeU4pdtQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiYXV0aCI6IiIsImlhdCI6MTc2NDUwNTk4MSwiZXhwIjoxNzY0NTkyMzgxfQ.w5DwhVcSUuukRpFuljTthThxepiFyF9eRRmS9Fq8AzxA86BYZ-q1OVpbdN3qCvLyVw24l4e02Bu6Ep_HghRAhg
 
 {
-  "key": "f433a3"
+  "key": "b9c794"
 }

@@ -38,4 +38,13 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/connection/{patient_id}")
+    public ResponseEntity<Void> deleteConnection(
+            @PathVariable Integer patient_id
+    ) {
+        userService.deleteConnection(patient_id);
+
+        return ResponseEntity.ok().build();
+    }
 }

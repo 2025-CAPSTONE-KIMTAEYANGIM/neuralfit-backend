@@ -19,5 +19,11 @@ public interface UserConnectionRepository extends JpaRepository<UserConnection, 
             "JOIN FETCH uc.patient p " +
             "JOIN FETCH p.appUser au " +
             "WHERE uc.therapist = :therapist")
-    List<UserConnection> findByTherapistWithFetchJoin(@Param("therapist") Therapist therapist);
+    List<UserConnection> findByTherapistIdWithPatientAndAppUser(@Param("therapist") Therapist therapist);
+
+    boolean existsByTherapist_IdAndPatient_Id(int therapistId, int patientId);
+
+    boolean existsByPatient(Patient patient);
+
+    Optional<UserConnection> findByTherapist_IdAndPatient_Id(int therapistId, int patientId);
 }

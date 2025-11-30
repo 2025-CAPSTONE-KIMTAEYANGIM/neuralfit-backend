@@ -19,10 +19,10 @@ public class Therapist {
     @JoinColumn(name = "id")
     private AppUser appUser;
 
-    @Column(name = "therapist_type")
+    @Column(name = "therapist_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
 
-    @Column(name = "organization")
+    @Column(name = "organization", nullable = false)
     private String organization;
 }

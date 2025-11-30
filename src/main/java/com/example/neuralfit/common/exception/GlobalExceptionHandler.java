@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     ) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(HttpStatus.FORBIDDEN.value())
-                .message(e.getMessage())
+                .message("접근 권한이 없습니다.")
                 .build();
 
         log.error("{} {}", errorResponse.toString(), request.getRequestURI());
@@ -116,7 +116,7 @@ public class GlobalExceptionHandler {
                 .message("서버에 알 수 없는 오류가 발생했습니다.")
                 .build();
 
-        log.error("{} {}", errorResponse.toString(), request.getRequestURI());
+        log.error("{} {}", e.toString(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }

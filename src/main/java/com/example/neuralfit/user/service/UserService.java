@@ -87,10 +87,9 @@ public class UserService {
         Patient patient = patientRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new NoSuchElementException("해당 환자를 찾을 수 없습니다."));
 
-        userConnectionRepository.findByTherapistAndPatient(therapist, patient)
-                .ifPresent(conn -> {
-                    throw new ConflictException("이미 연결되어 있습니다.");
-                });
+        if (userConnectionRepository.existsByPatient(patient)) {
+            throw new ConflictException("이미 연결되어 있습니다.");
+        }
 
         userConnectionRepository.save(
                 UserConnection.builder()
@@ -107,12 +106,31 @@ public class UserService {
         Therapist therapist = therapistRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new NoSuchElementException("해당 의료진을 찾을 수 없습니다."));
 
-        List<UserConnection> connections = userConnectionRepository.findByTherapistWithFetchJoin(therapist);
+        List<UserConnection> connections = userConnectionRepository.findByTherapistIdWithPatientAndAppUser(therapist);
 
         return connections.stream().map(
                 (connection) -> PatientInfoDto.fromEntity(
                         connection.getPatient().getAppUser(), connection.getPatient()
                 )
         ).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteConnection(Integer patientId) {
+        AppUser currentUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (currentUser.getUserRole() != UserRole.THERAPIST) {
+            throw new ForbiddenException("권한이 없습니다.");
+        }
+
+        Therapist therapist = therapistRepository.findById(currentUser.getId())
+                .orElseThrow(()-> new NoSuchElementException("해당 의료진을 찾을 수 없습니다."));
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new NoSuchElementException("해당 환자를 찾을 수 없습니다."));
+
+        UserConnection userConnection = userConnectionRepository.findByTherapistAndPatient(therapist, patient)
+                .orElseThrow(() -> new ForbiddenException("권한이 없습니다."));
+
+        userConnectionRepository.delete(userConnection);
     }
 }

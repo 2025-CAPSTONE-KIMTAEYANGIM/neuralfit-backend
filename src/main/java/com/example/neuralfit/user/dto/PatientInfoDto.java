@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @SuperBuilder
 public class PatientInfoDto extends AppUserInfoDto {
     private final Gender gender;
-    private final LocalDate birthdate;
+    private final LocalDate birthDate;
 
     public static PatientInfoDto fromEntity(AppUser appUser, Patient patient) {
         return PatientInfoDto.builder()
@@ -23,7 +23,7 @@ public class PatientInfoDto extends AppUserInfoDto {
                 .createdAt(appUser.getCreatedAt())
                 .updatedAt(appUser.getUpdatedAt())
                 .gender(patient.getGender())
-                .birthdate(patient.getBirthdate())
+                .birthDate(patient.getBirthDate())
                 .build();
     }
 }
