@@ -44,6 +44,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers("/api/auth/login", "/api/auth/signup/**").permitAll()
+                                .requestMatchers(
+                                        "/", "/index.html",
+                                        "/main.dart.js", "/flutter.js", "/flutter_bootstrap.js",
+                                        "/favicon.png", "/manifest.json",
+                                        "/assets/**", "/icons/**", "/flutter_service_worker.js*"
+                                ).permitAll()
                                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                         //.anyRequest().permitAll() // 모든 요청 허용
                 )
