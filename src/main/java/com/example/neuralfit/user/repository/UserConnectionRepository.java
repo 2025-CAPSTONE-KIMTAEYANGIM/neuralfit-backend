@@ -25,5 +25,5 @@ public interface UserConnectionRepository extends JpaRepository<UserConnection, 
 
     boolean existsByPatient(Patient patient);
 
-    UserConnection findByPatient(Patient patient);
+    Optional<UserConnection> findByTherapist_IdAndPatient_Id(int therapistId, int patientId);
 }
