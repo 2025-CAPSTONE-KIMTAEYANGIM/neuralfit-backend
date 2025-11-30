@@ -1,0 +1,3 @@
+GET http://localhost:8080/api/record?patient_id=2&year=2025&month=11
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImlhdCI6MTc2NDUwNjA2MywiZXhwIjoxNzY0NTkyNDYzfQ.H8uyUixM_nMH1c5e3CPZVay6q8EHenR99a-Jp3bbnukNj_o-vJl5dQ13iImmHhrCr9dfYizs9P6k7-XzojfoQQ
