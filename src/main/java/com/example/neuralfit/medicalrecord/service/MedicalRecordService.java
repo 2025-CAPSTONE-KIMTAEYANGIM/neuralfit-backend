@@ -85,7 +85,7 @@ public class MedicalRecordService {
         } catch (DataIntegrityViolationException e) {
             Throwable root = e.getRootCause();
             if (root instanceof SQLException sqlEx) {
-                if (sqlEx.getSQLState().equals("23505")) {
+                if (sqlEx.getSQLState().equals("1062")) {
                     throw new ConflictException("해당 날짜에 중복되는 진료 기록이 있습니다.");
                 }
             } else {
