@@ -14,23 +14,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class MedicalRecordDto {
-    private int id;
-    private int patientId;
-    private int therapistId;
+    private Integer id;
+    private Integer patientId;
+    private Integer therapistId;
     private ConsultationType consultationType;
     private String description;
     private LocalDate consultationDate;
     private Diagnosis diagnosis;
     private String patientComment;
-    private int moca;
-    private int mmse;
-    private int faq;
-    private int ldelTotal;
-    private int adas13;
-    private double abeta;
-    private double ptau;
-    private double ecogPtMem;
-    private double ecogPtTotal;
+    private Integer moca;
+    private Integer mmse;
+    private Integer faq;
+    private Integer ldelTotal;
+    private Integer adas13;
+    private Double abeta;
+    private Double ptau;
+    private Double ecogPtMem;
+    private Double ecogPtTotal;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

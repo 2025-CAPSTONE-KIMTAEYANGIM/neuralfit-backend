@@ -28,7 +28,7 @@ public class MedicalRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "connection_id", nullable = false)
@@ -52,31 +52,31 @@ public class MedicalRecord {
     private Diagnosis diagnosis;
 
     @Column(name = "moca")
-    private int moca;
+    private Integer moca;
 
     @Column(name = "mmse")
-    private int mmse;
+    private Integer mmse;
 
     @Column(name = "faq")
-    private int faq;
+    private Integer faq;
 
     @Column(name = "ldel_total")
-    private int ldelTotal;
+    private Integer ldelTotal;
 
     @Column(name = "adas13")
-    private int adas13;
+    private Integer adas13;
 
     @Column(name = "abeta")
-    private double abeta;
+    private Double abeta;
 
     @Column(name = "ptau")
-    private double ptau;
+    private Double ptau;
 
     @Column(name = "ecog_pt_mem")
-    private double ecogPtMem;
+    private Double ecogPtMem;
 
     @Column(name = "ecog_pt_total")
-    private double ecogPtTotal;
+    private Double ecogPtTotal;
 
     @Column(name = "created_at")
     @CreatedDate
