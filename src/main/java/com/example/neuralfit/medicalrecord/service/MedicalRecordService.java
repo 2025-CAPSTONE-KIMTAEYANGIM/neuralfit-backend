@@ -1,6 +1,7 @@
 package com.example.neuralfit.medicalrecord.service;
 
 import com.example.neuralfit.common.code.UserRole;
+import com.example.neuralfit.common.exception.ConflictException;
 import com.example.neuralfit.common.exception.ForbiddenException;
 import com.example.neuralfit.medicalrecord.dto.AddMedicalRecordRequest;
 import com.example.neuralfit.medicalrecord.dto.MedicalRecordDto;
@@ -12,10 +13,12 @@ import com.example.neuralfit.user.repository.PatientRepository;
 import com.example.neuralfit.user.repository.TherapistRepository;
 import com.example.neuralfit.user.repository.UserConnectionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,22 +61,33 @@ public class MedicalRecordService {
         UserConnection userConnection = userConnectionRepository.findByTherapist_IdAndPatient_Id(appUser.getId(), patientId)
                 .orElseThrow(() -> new ForbiddenException("접근 권한이 없습니다."));
 
-        medicalRecordRepository.save(MedicalRecord.builder()
-                .consultationDate(request.getConsultationDate())
-                .consultationType(request.getConsultationType())
-                .faq(request.getFaq())
-                .mmse(request.getMmse())
-                .moca(request.getMoca())
-                .ptau(request.getPtau())
-                .abeta(request.getAbeta())
-                .adas13(request.getAdas13())
-                .diagnosis(request.getDiagnosis())
-                .ecogPtMem(request.getEcogPtMem())
-                .ecogPtTotal(request.getEcogPtTotal())
-                .description(request.getDescription())
-                .ldelTotal(request.getLdelTotal())
-                .patientComment(request.getPatientComment())
-                .userConnection(userConnection)
-                .build());
+        try {
+            medicalRecordRepository.save(MedicalRecord.builder()
+                    .consultationDate(request.getConsultationDate())
+                    .consultationType(request.getConsultationType())
+                    .faq(request.getFaq())
+                    .mmse(request.getMmse())
+                    .moca(request.getMoca())
+                    .ptau(request.getPtau())
+                    .abeta(request.getAbeta())
+                    .adas13(request.getAdas13())
+                    .diagnosis(request.getDiagnosis())
+                    .ecogPtMem(request.getEcogPtMem())
+                    .ecogPtTotal(request.getEcogPtTotal())
+                    .description(request.getDescription())
+                    .ldelTotal(request.getLdelTotal())
+                    .patientComment(request.getPatientComment())
+                    .userConnection(userConnection)
+                    .build());
+        } catch (DataIntegrityViolationException e) {
+            Throwable root = e.getRootCause();
+            if (root instanceof SQLException sqlEx) {
+                if (sqlEx.getSQLState().equals("23505")) {
+                    throw new ConflictException("해당 날짜에 중복되는 진료 기록이 있습니다.");
+                }
+            } else {
+                throw new RuntimeException("알 수 없는 오류 발생");
+            }
+        }
     }
 }
