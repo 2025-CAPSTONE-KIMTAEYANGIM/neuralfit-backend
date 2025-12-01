@@ -13,6 +13,7 @@ import com.example.neuralfit.user.repository.PatientRepository;
 import com.example.neuralfit.user.repository.TherapistRepository;
 import com.example.neuralfit.user.repository.UserConnectionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MedicalRecordService {
     private final MedicalRecordRepository medicalRecordRepository;
@@ -45,7 +47,8 @@ public class MedicalRecordService {
             }
         }
         LocalDate startDate = LocalDate.of(year, month, 1);
-        LocalDate endDate = startDate.plusMonths(1);
+        LocalDate endDate = startDate.plusMonths(1).minusDays(1);
+        log.info("year: {}, month : {}, startDate: {} endDate: {}", year, month, startDate, endDate);
 
         return medicalRecordRepository.findByUserConnection_Patient_IdAndConsultationDateBetween(patientId, startDate, endDate)
                 .stream().map(MedicalRecordDto::fromEntity).collect(Collectors.toList());
