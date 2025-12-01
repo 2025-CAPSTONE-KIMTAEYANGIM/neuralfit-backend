@@ -34,7 +34,7 @@ public class MedicalRecord {
     @JoinColumn(name = "connection_id", nullable = false)
     private UserConnection userConnection;
 
-    @Column(name = "consulation_type")
+    @Column(name = "consultation_type")
     @Enumerated(EnumType.STRING)
     private ConsultationType consultationType;
 
