@@ -21,7 +21,7 @@ public class Patient {
 
     @MapsId
     @JoinColumn(name = "id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private AppUser appUser;
 
     @Column(name = "gender", nullable = false)

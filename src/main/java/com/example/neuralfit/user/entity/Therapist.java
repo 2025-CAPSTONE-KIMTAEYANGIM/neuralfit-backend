@@ -15,7 +15,7 @@ public class Therapist {
     private int id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private AppUser appUser;
 
