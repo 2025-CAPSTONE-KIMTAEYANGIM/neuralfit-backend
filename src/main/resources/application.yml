@@ -14,8 +14,6 @@ spring:
     time-zone: Asia/Seoul
     deserialization:
       fail-on-unknown-properties: true
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8080
 
